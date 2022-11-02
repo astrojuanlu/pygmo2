@@ -31,7 +31,7 @@ jobs:
         env:
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
           CIBW_BEFORE_ALL: |-
-            yum install -y gcc tbb-devel eigen3-devel coin-or-Ipopt-devel NLopt-devel boost169-devel boost169-graph boost169-serialization
+            yum install -y gcc tbb-devel eigen3-devel coin-or-Ipopt-devel boost169-devel boost169-graph boost169-serialization
 
             # Newer version of NLopt-devel needed
             git clone https://github.com/stevengj/nlopt.git
@@ -48,7 +48,7 @@ jobs:
             cd pagmo2
             mkdir build
             cd build
-            cmake ../ -DCMAKE_BUILD_TYPE=Debug -DBoost_NO_BOOST_CMAKE=ON -DPAGMO_WITH_EIGEN3=ON -DPAGMO_WITH_IPOPT=ON -DPAGMO_WITH_NLOPT=ON -DCMAKE_PREFIX_PATH=$deps_dir -DCMAKE_INSTALL_PREFIX=$deps_dir -DPAGMO_ENABLE_IPO=ON -DPAGMO_INSTALL_LIBDIR=lib
+            cmake ../ -DCMAKE_BUILD_TYPE=Debug -DBoost_NO_BOOST_CMAKE=ON -DBoost_INCLUDE_DIR=/usr/include/boost169 -DPAGMO_WITH_EIGEN3=ON -DPAGMO_WITH_IPOPT=ON -DPAGMO_WITH_NLOPT=ON -DCMAKE_PREFIX_PATH=$deps_dir -DCMAKE_INSTALL_PREFIX=$deps_dir -DPAGMO_ENABLE_IPO=ON -DPAGMO_INSTALL_LIBDIR=lib
             make -j4 install VERBOSE=1
             cd ..
             cd ..
@@ -56,7 +56,7 @@ jobs:
             mkdir build
             cd build
 
-            cmake ../ -DCMAKE_BUILD_TYPE=Debug -DBoost_NO_BOOST_CMAKE=ON -DCMAKE_PREFIX_PATH=$deps_dir -DCMAKE_INSTALL_PREFIX=$deps_dir -DPYGMO_ENABLE_IPO=ON
+            cmake ../ -DCMAKE_BUILD_TYPE=Debug -DBoost_NO_BOOST_CMAKE=ON -DBoost_INCLUDE_DIR=/usr/include/boost169 -DCMAKE_PREFIX_PATH=$deps_dir -DCMAKE_INSTALL_PREFIX=$deps_dir -DPYGMO_ENABLE_IPO=ON
             make -j2 install VERBOSE=1
         #    ...
         # with:
