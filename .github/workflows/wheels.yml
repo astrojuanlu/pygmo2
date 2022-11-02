@@ -33,6 +33,17 @@ jobs:
           CIBW_BEFORE_ALL: |-
             yum install -y gcc tbb-devel eigen3-devel coin-or-Ipopt-devel NLopt-devel boost-graph boost-serialization
 
+            # Newer version of libnlopt-dev needed, see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=862390
+            git clone https://github.com/stevengj/nlopt.git
+            cd nlopt
+            mkdir build
+            cd build
+            cmake ..
+            make
+            make install
+            cd ..
+            cd ..
+
             git clone https://github.com/esa/pagmo2.git
             cd pagmo2
             mkdir build
