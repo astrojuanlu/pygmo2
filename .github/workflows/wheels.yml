@@ -33,8 +33,11 @@ jobs:
           CIBW_BEFORE_ALL: |-
             apt-get update
             apt-get install -y --no-install-recommends build-essential libtbb-dev libeigen3-dev coinor-libipopt-dev
-            # Newer version of libnlopt-dev needed, see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=862390
 
+            # Do we need ALL of Boost?
+            apt-get install -y --no-install-recommends libboost-all-dev
+
+            # Newer version of libnlopt-dev needed, see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=862390
             git clone https://github.com/stevengj/nlopt.git
             cd nlopt
             mkdir build
