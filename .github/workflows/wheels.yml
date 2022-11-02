@@ -24,8 +24,13 @@ jobs:
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.11.2
-        # env:
-        #   CIBW_SOME_OPTION: value
+        env:
+          CIBW_BEFORE_ALL: |
+            mkdir build
+            cd build
+
+            cmake ../ -DCMAKE_BUILD_TYPE=Debug -DBoost_NO_BOOST_CMAKE=ON -DCMAKE_PREFIX_PATH=$deps_dir -DCMAKE_INSTALL_PREFIX=$deps_dir -DPYGMO_ENABLE_IPO=ON
+            make -j2 install VERBOSE=1
         #    ...
         # with:
         #   package-dir: .
