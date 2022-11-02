@@ -32,7 +32,18 @@ jobs:
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_24
           CIBW_BEFORE_ALL: |-
             apt-get update
-            apt-get install -y --no-install-recommends build-essential libtbb-dev libeigen3-dev libnlopt-dev
+            apt-get install -y --no-install-recommends build-essential libtbb-dev libeigen3-dev
+            # Newer version of libnlopt-dev needed, see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=862390
+
+            git clone https://github.com/stevengj/nlopt.git
+            cd nlopt
+            mkdir build
+            cd build
+            cmake ..
+            make
+            sudo make install
+            cd ..
+            cd ..
 
             git clone https://github.com/esa/pagmo2.git
             cd pagmo2
